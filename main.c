@@ -19,7 +19,7 @@ int main(void)
 	int status = 0;
 
 	do {
-	prompt();
+	display_prompt();
 
 	input = malloc(sizeof(char) * MAX_INPUT);
 	if (!input)

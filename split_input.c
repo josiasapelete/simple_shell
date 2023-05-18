@@ -25,7 +25,7 @@ char **split_input(char *input)
 	{
 		tokens[i] = token;
 		i++;
-		token = strtok(NULL, " \t\n\r")
+		token = strtok(NULL, " \t\n\r");
 	}
 	tokens[i] = NULL;
 	return (tokens);
