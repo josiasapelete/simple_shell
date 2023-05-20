@@ -18,11 +18,12 @@ int main(void)
 	char **args = NULL;
 	int status = 0;
 
-	do {
+	while (1)
+	{
 	display_prompt();
 
 	input = malloc(sizeof(char) * MAX_INPUT);
-	if (!input)
+	if (input == NULL)
 	{
 	perror("Malloc error");
 	return (EXIT_FAILURE);
@@ -45,8 +46,8 @@ int main(void)
 	status = execute_command(args);
 
 	free_args(args);
-	free(input);
-	} while (status == EXIT_SUCCESS);
+	/*free(input);*/
+	}
 
 	return (status);
 }

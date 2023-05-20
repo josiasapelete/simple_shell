@@ -11,7 +11,7 @@
 
 void display_prompt(void);
 char **split_input(char *input);
-int execute_command(char *command, char **args);
+int execute_command(char **args);
 void free_args(char **args);
 
 #endif

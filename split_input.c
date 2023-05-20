@@ -13,7 +13,7 @@ char **split_input(char *input)
 	char *token;
 	char **tokens = malloc(sizeof(char *) * 64);
 
-	if (!tokens)
+	if (tokens == NULL)
 	{
 		perror("Allocation error");
 		exit(EXIT_FAILURE);

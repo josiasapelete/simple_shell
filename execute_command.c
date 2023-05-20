@@ -16,7 +16,7 @@
  *
  * Return: On success, returns 0. On failure, returns -1.
  */
-int execute_command(char *command, char **args)
+int execute_command(char **args)
 {
 	pid_t pid;
 	int status;
