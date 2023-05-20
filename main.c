@@ -46,7 +46,9 @@ int main(void)
 	status = execute_command(args);
 
 	free_args(args);
-	/*free(input);*/
+	
+	/*if (input)
+		free(input);*/
 	}
 
 	return (status);

@@ -12,16 +12,16 @@
  */
 void free_args(char **args)
 {
-	int i;
+	/*int i;*/
 
 	if (args == NULL)
 		return;
 
-	for (i = 0; args[i] != NULL; i++)
+	/*for (i = 0; args[i] != NULL; i++)
 	{
 		free(args[i]);
 		args[i] = NULL;
-	}
+	}*/
 
 	free(args);
 }
