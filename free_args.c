@@ -12,5 +12,8 @@
  */
 void free_args(char **args)
 {
+	if (args == NULL)
+		return;
+
 	free(args);
 }
