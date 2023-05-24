@@ -8,7 +8,6 @@
 
 /**
  * execute_command - Execute a command
- * @command: The command to execute
  * @args: Arguments for the command
  *
  * Description: This function executes the specified command by forking
