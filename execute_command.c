@@ -6,9 +6,27 @@
 
 #include "shell.h"
 
+
+
+/**
+ * create_path - funtion that creates the command path
+ * @token: the path
+ * @command: the command
+ * Return: the command path
+ */
+
+char *create_path(const char *token, const char *command)
+{
+	char *command_path = malloc(strlen(token) + strlen(command) + 2);
+
+	sprintf(command_path, "%s/%s", token, command);
+
+	return (command_path);
+}
+
+
 /**
  * execute_command - Execute a command
- * @command: The command to execute
  * @args: Arguments for the command
  *
  * Description: This function executes the specified command by forking
@@ -18,33 +36,45 @@
  */
 int execute_command(char **args)
 {
-	pid_t pid;
-	int status;
+
+	char *path, *token;
+	char *command = args[0];
+
+	if (strcmp(command, "exit") == 0)
+		exit(0);
+
+	path = getenv("PATH");
+	token = strtok(path, ":");
 
 
-	pid = fork();
-	if (pid == 0)
+	while (token != NULL)
 	{
+		char *command_path = create_path(token, command);
 
-		if (execve(args[0], args, NULL) == -1)
+		if (access(command_path, X_OK) == 0)
 		{
-			perror("Error executing command");
-			exit(EXIT_FAILURE);
+			args[0] = command_path;
+
+			if (execve(command_path, args, NULL) == -1)
+			{
+			perror("execve");
+
+			free(command_path);
+			return (-1);
+			}
 		}
-	}
-	else if (pid < 0)
-	{
-		perror("forking error");
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
 
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
+		free(command_path);
+
+		/*token = strtok(NULL, ":");*/
+
+		return (0);
 
 
-	return (1);
+
+	}
+
+	printf("%s: command not found\n", command);
+
+	return (-1);
 }

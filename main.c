@@ -14,40 +14,41 @@
  */
 int main(void)
 {
+	if (isatty(fileno(stdin)))
+	{
 	char *input = NULL;
 	char **args = NULL;
-	int status = 0;
+
+	display_prompt();
+
 
 	while (1)
 	{
-	display_prompt();
+	input = get_input();
 
-	input = malloc(sizeof(char) * MAX_INPUT);
 	if (input == NULL)
-	{
-	perror("Malloc error");
-	return (EXIT_FAILURE);
-	}
-
-	if (fgets(input, MAX_INPUT, stdin) == NULL)
-	{
-		free(input);
-		printf("\n");
-		return (EXIT_SUCCESS);
-	}
+		break;
 
 	args = split_input(input);
-	if (args == NULL)
+	if (args == NULL || args[0] == NULL)
 	{
 		free(input);
 		continue;
 	}
 
-	status = execute_command(args);
+	execute_command(args);
 
 	free_args(args);
+	free(input);
+
+	display_prompt();
 
 	}
+	}
+	else
+	{
+		process_input(stdin);
+	}
 
-	return (status);
+	return (0);
 }
